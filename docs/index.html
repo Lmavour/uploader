@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101813" />
+    <meta
+      name="description"
+      content="Upload video directly from your browser and explore the Lmavour Uploader API. No application server, no file relay, no API key."
+    />
+    <meta property="og:title" content="Lmavour Uploader | Direct file delivery" />
+    <meta
+      property="og:description"
+      content="A serverless upload playground and complete API reference for Lmavour Uploader."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lmavour.github.io/uploader/" />
+    <title>Lmavour Uploader | Direct file delivery</title>
+    <link rel="canonical" href="https://lmavour.github.io/uploader/" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./app.mjs"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <div class="page-grid" aria-hidden="true"></div>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Lmavour Uploader home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 28 28" role="img">
+            <path d="M8 16.5 14 10l6 6.5M14 10.5V22M7 6h14" />
+          </svg>
+        </span>
+        <span>Lmavour<span class="brand-muted">/ uploader</span></span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#playground">Playground</a>
+        <a href="#services">Services</a>
+        <a href="#docs">API docs</a>
+      </nav>
+
+      <a
+        class="header-link"
+        href="https://github.com/Lmavour/uploader"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
+          />
+        </svg>
+        <span>GitHub</span>
+      </a>
+    </header>
+
+    <main id="main-content">
+      <section class="hero section-shell" id="top">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">
+            <span class="status-dot" aria-hidden="true"></span>
+            Direct-to-provider uploads
+          </div>
+          <h1>Files move better <em>without a middleman.</em></h1>
+          <p class="hero-lede">
+            Send files from the browser straight to the hosting provider. Your data
+            never touches an application server, while developers keep a clean Node.js
+            API for every supported host.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#playground">
+              Try a live upload
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="m7 4 6 6-6 6" />
+              </svg>
+            </a>
+            <a class="button button-ghost" href="#docs">Read the API</a>
+          </div>
+          <dl class="hero-metrics" aria-label="Platform highlights">
+            <div>
+              <dt>0 B</dt>
+              <dd>stored by this site</dd>
+            </div>
+            <div>
+              <dt>6</dt>
+              <dd>provider adapters</dd>
+            </div>
+            <div>
+              <dt>0</dt>
+              <dd>API keys required</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="upload-console reveal" id="playground">
+          <div class="console-topbar">
+            <div class="window-dots" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </div>
+            <span class="console-title">live_request.upload</span>
+            <span class="secure-label">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M6.5 9V6.7a3.5 3.5 0 0 1 7 0V9M5 9h10v8H5z" />
+              </svg>
+              HTTPS
+            </span>
+          </div>
+
+          <div class="console-body">
+            <div class="provider-row">
+              <div class="provider-identity">
+                <span class="provider-logo" aria-hidden="true">V</span>
+                <span>
+                  <small>Direct provider</small>
+                  <strong>Videy CDN</strong>
+                </span>
+              </div>
+              <span class="provider-capability">Browser ready</span>
+            </div>
+
+            <div class="source-gate" id="source-gate">
+              <span class="source-gate-label">Source confirmation</span>
+              <h2>Review the upstream project.</h2>
+              <p>
+                Before the uploader is enabled, confirm the external repository used by
+                this integration.
+              </p>
+              <a
+                class="source-destination"
+                href="https://github.com/ZanixonGroup/uploader"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.86c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0 1 12 6.84c.85 0 1.71.12 2.51.34 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
+                  />
+                </svg>
+                <span>
+                  <small>External GitHub destination</small>
+                  <strong>github.com/ZanixonGroup/uploader</strong>
+                </span>
+                <svg class="source-arrow" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M6 14 14 6M8 6h6v6" />
+                </svg>
+              </a>
+              <p class="source-gate-note">
+                Continuing does not follow, star, or authorize anything on your behalf.
+              </p>
+              <button class="button upload-button" id="confirm-source" type="button">
+                <span>I understand, continue</span>
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M3 10h13M11 5l5 5-5 5" />
+                </svg>
+              </button>
+            </div>
+
+            <div id="upload-interface" hidden>
+              <form id="upload-form" novalidate>
+              <div
+                class="drop-zone"
+                id="drop-zone"
+                role="button"
+                tabindex="0"
+                aria-controls="file-input"
+                aria-describedby="file-requirements"
+              >
+                <input
+                  class="visually-hidden"
+                  id="file-input"
+                  type="file"
+                  accept=".mp4,.mov,video/mp4,video/quicktime"
+                />
+
+                <div class="drop-empty" id="drop-empty">
+                  <span class="upload-icon" aria-hidden="true">
+                    <svg viewBox="0 0 32 32">
+                      <path d="m9 17 7-7 7 7M16 10v14M7 27h18" />
+                    </svg>
+                  </span>
+                  <strong>Drop your video here</strong>
+                  <span>or <u>browse from your device</u></span>
+                </div>
+
+                <div class="file-selection" id="file-selection" hidden>
+                  <span class="file-type" id="file-extension">MP4</span>
+                  <span class="file-details">
+                    <strong id="file-name">video.mp4</strong>
+                    <span id="file-meta">0 MB</span>
+                  </span>
+                  <button
+                    class="icon-button"
+                    id="remove-file"
+                    type="button"
+                    aria-label="Remove selected file"
+                  >
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="m5 5 10 10M15 5 5 15" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="requirement-row" id="file-requirements">
+                <span>MP4 or MOV</span>
+                <span>Under 1 GB</span>
+              </div>
+
+              <p class="form-message" id="upload-message" role="alert" hidden></p>
+
+              <button class="button upload-button" id="upload-button" type="submit" disabled>
+                <span>Upload directly</span>
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M3 10h13M11 5l5 5-5 5" />
+                </svg>
+              </button>
+              </form>
+
+              <div class="upload-progress" id="upload-progress" aria-live="polite" hidden>
+              <div class="progress-heading">
+                <span>
+                  <small>Uploading directly to Videy</small>
+                  <strong id="progress-file-name">video.mp4</strong>
+                </span>
+                <span class="progress-value" id="progress-value">0%</span>
+              </div>
+              <div
+                class="progress-track"
+                role="progressbar"
+                aria-label="Upload progress"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+              >
+                <span id="progress-bar"></span>
+              </div>
+              <button class="text-button" id="cancel-upload" type="button">Cancel upload</button>
+              </div>
+
+              <div class="upload-result" id="upload-result" aria-live="polite" hidden>
+              <div class="result-heading">
+                <span class="result-check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="m6 12 4 4 8-9" />
+                  </svg>
+                </span>
+                <span>
+                  <small>Upload complete</small>
+                  <strong>Your link is ready</strong>
+                </span>
+              </div>
+              <video id="result-preview" controls preload="metadata" playsinline></video>
+              <div class="result-link-row">
+                <a id="result-link" href="#" target="_blank" rel="noreferrer">cdn.videy.co</a>
+                <button class="copy-result" id="copy-result" type="button">Copy</button>
+              </div>
+              <div class="result-actions">
+                <a class="button button-primary" id="open-result" href="#" target="_blank" rel="noreferrer">
+                  Open file
+                </a>
+                <button class="button button-ghost" id="upload-another" type="button">
+                  Upload another
+                </button>
+              </div>
+              </div>
+
+              <p class="privacy-note">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M10 2.5 16 5v4.6c0 3.8-2.5 6.6-6 7.9-3.5-1.3-6-4.1-6-7.9V5zM7.5 10l1.7 1.7 3.6-4" />
+                </svg>
+                The file travels from your device to the provider. We do not proxy or
+                retain it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="protocol-strip" aria-label="Direct upload data flow">
+        <span class="protocol-label">Request path</span>
+        <span>your browser</span>
+        <svg viewBox="0 0 42 12" aria-hidden="true">
+          <path d="M1 6h38M34 1l5 5-5 5" />
+        </svg>
+        <span>provider API</span>
+        <svg viewBox="0 0 42 12" aria-hidden="true">
+          <path d="M1 6h38M34 1l5 5-5 5" />
+        </svg>
+        <span>shareable URL</span>
+      </div>
+
+      <section class="process-section section-shell reveal" aria-labelledby="process-title">
+        <div class="section-heading split-heading">
+          <div>
+            <span class="section-kicker">Designed for less infrastructure</span>
+            <h2 id="process-title">A shorter path from file to URL.</h2>
+          </div>
+          <p>
+            The playground uses the provider's public upload contract. There is no
+            application backend to deploy, scale, or pay for.
+          </p>
+        </div>
+
+        <ol class="process-grid">
+          <li>
+            <span class="step-number">01</span>
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <rect x="5" y="3" width="22" height="26" rx="3" />
+              <path d="M10 10h12M10 16h12M10 22h7" />
+            </svg>
+            <h3>Select locally</h3>
+            <p>Type and size validation happens in your browser before any request starts.</p>
+          </li>
+          <li>
+            <span class="step-number">02</span>
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M5 16h22M20 9l7 7-7 7" />
+              <circle cx="7" cy="16" r="3" />
+            </svg>
+            <h3>Send directly</h3>
+            <p>Native FormData streams the file to the provider API with live progress.</p>
+          </li>
+          <li>
+            <span class="step-number">03</span>
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M12.5 19.5 19.5 12M10 22H8a5 5 0 0 1 0-10h5M22 10h2a5 5 0 0 1 0 10h-5" />
+            </svg>
+            <h3>Use the URL</h3>
+            <p>Copy, open, or embed the returned CDN link as soon as the upload finishes.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="services-section section-shell" id="services" aria-labelledby="services-title">
+        <div class="section-heading split-heading reveal">
+          <div>
+            <span class="section-kicker">One package, multiple hosts</span>
+            <h2 id="services-title">Choose the right destination.</h2>
+          </div>
+          <p>
+            Every adapter accepts a Node.js buffer and resolves to a usable URL. Provider
+            limits and availability remain under each provider's control.
+          </p>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card featured reveal">
+            <div class="service-card-top">
+              <span class="service-monogram">VI</span>
+              <span class="service-badge">Browser direct</span>
+            </div>
+            <h3>Videy</h3>
+            <p>Optimized video delivery with an API that supports direct browser requests.</p>
+            <dl>
+              <div><dt>Formats</dt><dd>MP4, MOV</dd></div>
+              <div><dt>Limit</dt><dd>1 GB</dd></div>
+            </dl>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card-top">
+              <span class="service-monogram">CA</span>
+              <span class="service-badge neutral">Node SDK</span>
+            </div>
+            <h3>Catbox</h3>
+            <p>General-purpose hosting for images, archives, documents, and media.</p>
+            <dl>
+              <div><dt>Formats</dt><dd>Any file</dd></div>
+              <div><dt>Limit</dt><dd>200 MB</dd></div>
+            </dl>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card-top">
+              <span class="service-monogram">PO</span>
+              <span class="service-badge neutral">Node SDK</span>
+            </div>
+            <h3>Pomf</h3>
+            <p>Simple general file uploads with a compact JSON response contract.</p>
+            <dl>
+              <div><dt>Formats</dt><dd>Any file</dd></div>
+              <div><dt>Limit</dt><dd>1 GB</dd></div>
+            </dl>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card-top">
+              <span class="service-monogram">QU</span>
+              <span class="service-badge neutral">Node SDK</span>
+            </div>
+            <h3>Quax</h3>
+            <p>A media-focused endpoint for image, video, and audio assets.</p>
+            <dl>
+              <div><dt>Formats</dt><dd>Media</dd></div>
+              <div><dt>Limit</dt><dd>256 MB</dd></div>
+            </dl>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card-top">
+              <span class="service-monogram">CL</span>
+              <span class="service-badge neutral">Node SDK</span>
+            </div>
+            <h3>Cloudku</h3>
+            <p>A broad file adapter intended for larger general-purpose uploads.</p>
+            <dl>
+              <div><dt>Formats</dt><dd>Any file</dd></div>
+              <div><dt>Limit</dt><dd>10 GB</dd></div>
+            </dl>
+          </article>
+
+          <article class="service-card reveal">
+            <div class="service-card-top">
+              <span class="service-monogram">PI</span>
+              <span class="service-badge neutral">Node SDK</span>
+            </div>
+            <h3>Picsur</h3>
+            <p>A dedicated image adapter for straightforward image sharing.</p>
+            <dl>
+              <div><dt>Formats</dt><dd>Images</dd></div>
+              <div><dt>Limit</dt><dd>256 MB</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="docs-section" id="docs" aria-labelledby="docs-title">
+        <div class="section-shell">
+          <div class="docs-intro reveal">
+            <span class="section-kicker">Documentation</span>
+            <h2 id="docs-title">From first request to production.</h2>
+            <p>
+              Use the REST endpoint in browser applications or install the package when
+              you need access to every provider from Node.js.
+            </p>
+          </div>
+
+          <div class="docs-layout">
+            <aside class="docs-navigation reveal" role="tablist" aria-label="Documentation sections">
+              <span>On this page</span>
+              <a class="active" id="docs-tab-quick-start" href="#quick-start" role="tab" aria-selected="true" aria-controls="quick-start">Quick start</a>
+              <a id="docs-tab-request-contract" href="#request-contract" role="tab" aria-selected="false" aria-controls="request-contract" tabindex="-1">Request</a>
+              <a id="docs-tab-response-contract" href="#response-contract" role="tab" aria-selected="false" aria-controls="response-contract" tabindex="-1">Response</a>
+              <a id="docs-tab-node-sdk" href="#node-sdk" role="tab" aria-selected="false" aria-controls="node-sdk" tabindex="-1">Node SDK</a>
+              <a id="docs-tab-errors" href="#errors" role="tab" aria-selected="false" aria-controls="errors" tabindex="-1">Errors</a>
+            </aside>
+
+            <div class="docs-content">
+              <article class="docs-article reveal" id="quick-start" role="tabpanel" aria-labelledby="docs-tab-quick-start" tabindex="0">
+                <span class="article-index">01</span>
+                <h3>Quick start</h3>
+                <p>
+                  Videy is the adapter exposed in the browser playground because its API
+                  advertises cross-origin upload support. Send a multipart request with a
+                  single <code>file</code> field.
+                </p>
+
+                <div class="endpoint-block">
+                  <span class="method-badge">POST</span>
+                  <code>https://videy.co/api/upload</code>
+                  <button class="copy-icon" type="button" data-copy-value="https://videy.co/api/upload" aria-label="Copy endpoint">
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <rect x="7" y="7" width="9" height="9" rx="2" />
+                      <path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="code-window">
+                  <div class="code-toolbar">
+                    <div class="code-tabs" role="tablist" aria-label="Code examples">
+                      <button class="code-tab active" id="tab-curl" type="button" role="tab" aria-selected="true" aria-controls="panel-curl" data-code-tab="curl">cURL</button>
+                      <button class="code-tab" id="tab-browser" type="button" role="tab" aria-selected="false" aria-controls="panel-browser" data-code-tab="browser" tabindex="-1">Browser</button>
+                      <button class="code-tab" id="tab-node" type="button" role="tab" aria-selected="false" aria-controls="panel-node" data-code-tab="node" tabindex="-1">Node.js</button>
+                    </div>
+                    <button class="copy-code" type="button" data-copy-active-code>
+                      <svg viewBox="0 0 20 20" aria-hidden="true">
+                        <rect x="7" y="7" width="9" height="9" rx="2" />
+                        <path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                      </svg>
+                      <span>Copy</span>
+                    </button>
+                  </div>
+
+                  <div class="code-panel active" id="panel-curl" role="tabpanel" aria-labelledby="tab-curl" data-code-panel="curl">
+                    <pre><code><span class="syntax-command">curl</span> -X POST https://videy.co/api/upload \
+  -F <span class="syntax-string">"file=@./clip.mp4"</span></code></pre>
+                  </div>
+
+                  <div class="code-panel" id="panel-browser" role="tabpanel" aria-labelledby="tab-browser" data-code-panel="browser" hidden>
+                    <pre><code><span class="syntax-keyword">const</span> form = <span class="syntax-keyword">new</span> FormData();
+form.append(<span class="syntax-string">"file"</span>, file);
+
+<span class="syntax-keyword">const</span> response = <span class="syntax-keyword">await</span> fetch(
+  <span class="syntax-string">"https://videy.co/api/upload"</span>,
+  { method: <span class="syntax-string">"POST"</span>, body: form },
+);
+
+<span class="syntax-keyword">if</span> (!response.ok) <span class="syntax-keyword">throw new</span> Error(<span class="syntax-string">"Upload failed"</span>);
+
+<span class="syntax-keyword">const</span> { id } = <span class="syntax-keyword">await</span> response.json();
+<span class="syntax-keyword">const</span> url = <span class="syntax-string">`https://cdn.videy.co/${id}.mp4`</span>;</code></pre>
+                  </div>
+
+                  <div class="code-panel" id="panel-node" role="tabpanel" aria-labelledby="tab-node" data-code-panel="node" hidden>
+                    <pre><code><span class="syntax-keyword">import</span> { Videy } <span class="syntax-keyword">from</span> <span class="syntax-string">"@zanixongroup/uploader"</span>;
+<span class="syntax-keyword">import</span> { readFile } <span class="syntax-keyword">from</span> <span class="syntax-string">"node:fs/promises"</span>;
+
+<span class="syntax-keyword">const</span> file = <span class="syntax-keyword">await</span> readFile(<span class="syntax-string">"./clip.mp4"</span>);
+<span class="syntax-keyword">const</span> url = <span class="syntax-keyword">await</span> Videy(file);
+
+console.log(url);</code></pre>
+                  </div>
+                </div>
+              </article>
+
+              <article class="docs-article reveal" id="request-contract" role="tabpanel" aria-labelledby="docs-tab-request-contract" tabindex="0">
+                <span class="article-index">02</span>
+                <h3>Request contract</h3>
+                <p>
+                  Use <code>multipart/form-data</code>. The browser generates the boundary;
+                  do not set the <code>Content-Type</code> header manually when using
+                  <code>FormData</code>.
+                </p>
+                <div class="reference-table" role="region" aria-label="Request parameters" tabindex="0">
+                  <table>
+                    <thead>
+                      <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>file</code></td>
+                        <td>Binary</td>
+                        <td>Yes</td>
+                        <td>An MP4 or MOV file smaller than 1 GB.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="callout">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 10v6M12 7h.01" />
+                  </svg>
+                  <p>
+                    File limits shown here mirror the package adapters. Hosting providers
+                    can change limits, retention policies, or availability independently.
+                  </p>
+                </div>
+              </article>
+
+              <article class="docs-article reveal" id="response-contract" role="tabpanel" aria-labelledby="docs-tab-response-contract" tabindex="0">
+                <span class="article-index">03</span>
+                <h3>Response contract</h3>
+                <p>
+                  A successful Videy request returns an identifier. Append the original
+                  file extension to create the public CDN URL.
+                </p>
+                <div class="response-grid">
+                  <div>
+                    <span class="response-label">JSON response</span>
+                    <pre class="compact-code"><code>{
+  <span class="syntax-property">"id"</span>: <span class="syntax-string">"a1b2c3d4"</span>
+}</code></pre>
+                  </div>
+                  <div>
+                    <span class="response-label">Public URL</span>
+                    <pre class="compact-code"><code>https://cdn.videy.co/
+a1b2c3d4.mp4</code></pre>
+                  </div>
+                </div>
+              </article>
+
+              <article class="docs-article reveal" id="node-sdk" role="tabpanel" aria-labelledby="docs-tab-node-sdk" tabindex="0">
+                <span class="article-index">04</span>
+                <h3>Node SDK</h3>
+                <p>
+                  Use the package for server-side workflows and access to every adapter.
+                  Each function accepts a <code>Buffer</code> and returns a
+                  <code>Promise&lt;string&gt;</code> containing the hosted file URL.
+                </p>
+                <div class="install-command">
+                  <span class="prompt-symbol" aria-hidden="true">$</span>
+                  <code>npm install @zanixongroup/uploader</code>
+                  <button class="copy-icon" type="button" data-copy-value="npm install @zanixongroup/uploader" aria-label="Copy install command">
+                    <svg viewBox="0 0 20 20" aria-hidden="true">
+                      <rect x="7" y="7" width="9" height="9" rx="2" />
+                      <path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="reference-table" role="region" aria-label="SDK functions" tabindex="0">
+                  <table>
+                    <thead>
+                      <tr><th>Function</th><th>Accepted files</th><th>Adapter limit</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td><code>Catbox(buffer)</code></td><td>Any file</td><td>200 MB</td></tr>
+                      <tr><td><code>Pomf(buffer)</code></td><td>Any file</td><td>1 GB</td></tr>
+                      <tr><td><code>Quax(buffer)</code></td><td>Image, video, audio</td><td>256 MB</td></tr>
+                      <tr><td><code>Videy(buffer)</code></td><td>MP4, MOV</td><td>1 GB</td></tr>
+                      <tr><td><code>Cloudku(buffer)</code></td><td>Any file</td><td>10 GB</td></tr>
+                      <tr><td><code>Picsur(buffer)</code></td><td>Image</td><td>256 MB</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </article>
+
+              <article class="docs-article reveal" id="errors" role="tabpanel" aria-labelledby="docs-tab-errors" tabindex="0">
+                <span class="article-index">05</span>
+                <h3>Errors and boundaries</h3>
+                <p>
+                  Validate early, surface provider errors, and never assume an upstream
+                  service is available. The playground covers the most common failure modes.
+                </p>
+                <div class="error-list">
+                  <div><code>400</code><span><strong>Invalid request</strong>Missing file or unsupported payload.</span></div>
+                  <div><code>413</code><span><strong>Payload too large</strong>The selected file exceeds the provider limit.</span></div>
+                  <div><code>CORS</code><span><strong>Browser policy</strong>Use a browser-enabled adapter or call the package from Node.js.</span></div>
+                  <div><code>5xx</code><span><strong>Provider unavailable</strong>Retry later or select another adapter server-side.</span></div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq-section section-shell reveal" aria-labelledby="faq-title">
+        <div class="section-heading split-heading">
+          <div>
+            <span class="section-kicker">Good to know</span>
+            <h2 id="faq-title">Before you ship.</h2>
+          </div>
+        </div>
+        <div class="faq-list">
+          <details>
+            <summary>Does this website store my file?<span aria-hidden="true"></span></summary>
+            <p>No. The live request is sent directly from your browser to Videy. This static website has no upload server or database.</p>
+          </details>
+          <details>
+            <summary>Why is only Videy available in the browser playground?<span aria-hidden="true"></span></summary>
+            <p>Browser requests require an upstream CORS policy. The remaining package adapters are intended for Node.js, where browser cross-origin restrictions do not apply.</p>
+          </details>
+          <details>
+            <summary>Are hosted files guaranteed to remain forever?<span aria-hidden="true"></span></summary>
+            <p>No client library can guarantee a third-party provider's future retention or availability. Review the selected provider's current policy before storing critical files.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <a class="brand footer-brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 28 28"><path d="M8 16.5 14 10l6 6.5M14 10.5V22M7 6h14" /></svg>
+          </span>
+          <span>Lmavour<span class="brand-muted">/ uploader</span></span>
+        </a>
+        <p>Open-source file delivery for Node.js and the browser.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#playground">Playground</a>
+        <a href="#docs">Documentation</a>
+        <a href="https://www.npmjs.com/package/@zanixongroup/uploader" target="_blank" rel="noreferrer">npm</a>
+        <a href="https://github.com/Lmavour/uploader" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+      <p class="copyright">Released under ISC. Built for direct delivery.</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 10 3 3 7-7" /></svg>
+      <span>Copied to clipboard</span>
+    </div>
+  </body>
+</html>

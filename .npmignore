@@ -1,6 +1,9 @@
 # source
 src
 test
+docs
+.github
+vercel.json
 
 # build
 tsconfig.json

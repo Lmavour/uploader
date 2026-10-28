@@ -5,5 +5,8 @@ dist
 # dependencies
 node_modules
 
+# deployment
+.vercel
+
 # logs
 npm-debug.log

@@ -1,320 +1,251 @@
 <div align="center">
 
-# 📤 Permanent File Uploader
-**A lightweight Node.js uploader for permanent file hosting services**
+# Permanent File Uploader
 
-[![NPM Version](https://img.shields.io/npm/v/@zanixongroup/uploader?style=for-the-badge&logo=npm&color=CB3837)](https://www.npmjs.com/package/@zanixongroup/uploader)
-[![Repo Size](https://img.shields.io/github/repo-size/zanixongroup/uploader?style=for-the-badge&logo=github&color=2ea44f)](https://github.com/zanixongroup/uploader)
-[![License](https://img.shields.io/github/license/zanixongroup/uploader?style=for-the-badge&color=informational)](https://github.com/zanixongroup/uploader/blob/main/LICENSE)
+**A compact Node.js uploader for long-lived file hosting services.**
 
----
+[![npm version](https://img.shields.io/npm/v/@zanixongroup/uploader?style=flat-square&logo=npm&color=CB3837)](https://www.npmjs.com/package/@zanixongroup/uploader)
+[![npm downloads](https://img.shields.io/npm/dm/@zanixongroup/uploader?style=flat-square&logo=npm)](https://www.npmjs.com/package/@zanixongroup/uploader)
+[![license](https://img.shields.io/npm/l/@zanixongroup/uploader?style=flat-square)](https://www.npmjs.com/package/@zanixongroup/uploader)
+[![repository](https://img.shields.io/badge/source-Lmavour%2Fuploader-181717?style=flat-square&logo=github)](https://github.com/Lmavour/uploader)
 
-## 🎯 Modified Version
-
-**⚡ Modif oleh lamvour**
-
-This version has been modified by **lamvour** to focus exclusively on permanent file hosting services. All temporary hosting services have been removed to ensure your files remain accessible indefinitely.
-
----
-
-[Features](#-features) • [What's Changed](#-whats-changed) • [Installation](#-installation) • [Supported Services](#-supported-services) • [Usage](#-usage) • [API](#-api) • [Contributing](#-contributing)
+[Playground](https://lmavour.github.io/uploader/) | [Installation](#installation) | [Providers](#supported-providers) | [Usage](#usage) | [API](#api-reference) | [Development](#development)
 
 </div>
 
----
+> [!NOTE]
+> This README documents `@zanixongroup/uploader` version **2.1.5**.
 
-## ✨ Features
+## Overview
 
-- 📦 **Lightweight**: Zero unnecessary dependencies
-- ⚡ **Simple API**: Upload files with just a few lines of code
-- 🌐 **Multi-Host**: Support for 6 permanent hosting services
-- 🛡️ **Reliable**: Built-in error handling for seamless uploads
-- ♾️ **Permanent Storage**: All services provide long-term file hosting with no expiration
-- 🔒 **Stable Access**: Your files remain accessible indefinitely without time limits
-- 🎯 **Focused**: Only permanent hosting services - no temporary links
+Permanent File Uploader exposes six small, asynchronous upload adapters through one package. Each adapter accepts a Node.js `Buffer`, uploads it directly to the selected provider, and resolves with the resulting public URL.
 
----
+This fork is maintained by [Lmavour](https://github.com/Lmavour) and focuses on providers intended for long-lived storage. It also includes a static browser playground and API reference.
 
-## 🔄 What's Changed
+## Highlights
 
-### Modifications by lamvour
+- Six provider adapters with one consistent API
+- Named exports for both ESM and CommonJS projects
+- TypeScript declarations included in the package
+- MIME detection and provider-specific size validation
+- No account or API key required by the current integrations
+- Static playground with direct browser-to-provider uploads
 
-This version has been significantly modified from the original:
+## Supported Providers
 
-- ❌ **Removed**: All temporary file hosting services
-- ✅ **Kept**: Only permanent hosting services that guarantee long-term storage
-- 🎯 **Focus**: Simplified to provide reliable, permanent file hosting solutions
-- 📝 **Purpose**: Ensure users have access to services that won't delete their files
+| Export | Provider | Intended content | Upload limit |
+| :--- | :--- | :--- | ---: |
+| `Catbox` | [Catbox](https://catbox.moe/) | General files | Less than 200 MB |
+| `Pomf` | [Pomf](https://pomf.lain.la/) | General files | Less than 1 GB |
+| `Quax` | [Qu.ax](https://qu.ax/) | Images, video, and audio | Less than 256 MB |
+| `Videy` | [Videy](https://videy.co/) | MP4 and MOV video | Less than 1 GB |
+| `Cloudku` | [Cloudku](https://cloudkuimages.guru/) | Provider-supported files | Less than 10 GB |
+| `Picsur` | [Picsur](https://picsur.org/) | Images | Less than 256 MB |
 
-**Why remove temporary services?**
-Temporary hosting services can be unreliable for long-term storage. Files may be deleted after a certain period, making them unsuitable for important documents, backups, or permanent sharing. This modified version focuses exclusively on services that provide permanent storage.
+> [!IMPORTANT]
+> File availability, retention, acceptable content, and service uptime are controlled by each provider. "Permanent" describes this project's long-lived hosting focus; it is not a guarantee that a third-party provider will retain a file forever.
 
----
+## Installation
 
-## 📥 Installation
-
-Install the package via **npm**:
+Install with your preferred package manager:
 
 ```bash
 npm install @zanixongroup/uploader
 ```
 
-Or using **yarn**:
+```bash
+pnpm add @zanixongroup/uploader
+```
+
 
 ```bash
 yarn add @zanixongroup/uploader
 ```
 
-Or using **pnpm**:
+## Usage
 
-```bash
-pnpm add @zanixongroup/uploader
-```
-
----
-
-## ☁️ Supported Services
-
-| Service | File Types | Best For | Storage Type |
-| :--- | :--- | :--- | :--- |
-| **Pomf** | All files | General purpose | Permanent |
-| **Quax** | Image, Video, Audio | Media hosting | Permanent |
-| **Videy** | Video | Video sharing | Permanent |
-| **Catbox** | All files | General purpose | Permanent |
-| **Cloudku** | All files | General purpose | Permanent |
-| **Picsur** | Image | Simple image hosting | Permanent |
-
-✅ **All services provide permanent file storage with no expiration time.**
-
----
-
-## 🚀 Usage
-
-### Basic Example (ES Modules)
+### ES Modules
 
 ```javascript
-import { Pomf } from "@zanixongroup/uploader";
-import fs from "fs";
+import { readFile } from "node:fs/promises";
+import { Catbox } from "@zanixongroup/uploader";
 
-// Read file as Buffer
-const buffer = fs.readFileSync("./my-file.jpg");
+async function main() {
+  const file = await readFile("./photo.jpg");
+  const url = await Catbox(file);
 
-// Upload to Pomf
-Pomf(buffer)
-  .then((url) => console.log("✅ Uploaded successfully:", url))
-  .catch((err) => console.error("❌ Upload failed:", err));
+  console.log(url);
+}
+
+main().catch(console.error);
 ```
 
-### CommonJS Example
+### CommonJS
 
 ```javascript
-const { Catbox } = require("@zanixongroup/uploader");
+const { readFile } = require("node:fs/promises");
+const { Pomf } = require("@zanixongroup/uploader");
 
-(async () => {
-  try {
-    const buffer = fs.readFileSync("./my-file.pdf");
-    const url = await Catbox(buffer);
-    console.log("✅ Result:", url);
-  } catch (error) {
-    console.error("❌ Error:", error);
-  }
-})();
+async function main() {
+  const file = await readFile("./document.pdf");
+  const url = await Pomf(file);
+
+  console.log(url);
+}
+
+main().catch(console.error);
 ```
 
-### Using All Services
+### Selecting a Provider
+
+All adapters use the same call pattern, so you only need to change the imported function:
 
 ```javascript
-import { 
-  Catbox, 
-  Pomf, 
-  Quax, 
-  Videy, 
-  Cloudku, 
-  Picsur 
+import { readFile } from "node:fs/promises";
+import {
+  Catbox,
+  Pomf,
+  Quax,
+  Videy,
+  Cloudku,
+  Picsur,
 } from "@zanixongroup/uploader";
-import fs from "fs";
 
-const fileBuffer = fs.readFileSync("./my-file.jpg");
+const file = await readFile("./file.jpg");
 
-// Upload to different services
-const catboxUrl = await Catbox(fileBuffer);
-console.log("Catbox:", catboxUrl);
+const catboxUrl = await Catbox(file);
+const pomfUrl = await Pomf(file);
+const quaxUrl = await Quax(file);
+const cloudkuUrl = await Cloudku(file);
+const picsurUrl = await Picsur(file);
 
-const pomfUrl = await Pomf(fileBuffer);
-console.log("Pomf:", pomfUrl);
-
-const quaxUrl = await Quax(fileBuffer);
-console.log("Quax:", quaxUrl);
-
-const videyUrl = await Videy(fileBuffer);
-console.log("Videy:", videyUrl);
-
-const cloudkuUrl = await Cloudku(fileBuffer);
-console.log("Cloudku:", cloudkuUrl);
-
-const picsurUrl = await Picsur(fileBuffer);
-console.log("Picsur:", picsurUrl);
-```
-
-### Service-Specific Examples
-
-#### For Images (Picsur, Quax)
-
-```javascript
-import { Picsur, Quax } from "@zanixongroup/uploader";
-
-// Upload image to Picsur (simple image hosting)
-const imageBuffer = fs.readFileSync("./photo.png");
-const picsurUrl = await Picsur(imageBuffer);
-
-// Upload image to Quax (media hosting)
-const quaxUrl = await Quax(imageBuffer);
-```
-
-#### For Videos (Videy, Quax)
-
-```javascript
-import { Videy, Quax } from "@zanixongroup/uploader";
-
-// Upload video to Videy (video-specific)
-const videoBuffer = fs.readFileSync("./video.mp4");
-const videyUrl = await Videy(videoBuffer);
-
-// Upload video to Quax (media hosting)
-const quaxUrl = await Quax(videoBuffer);
-```
-
-#### For General Files (Catbox, Pomf, Cloudku)
-
-```javascript
-import { Catbox, Pomf, Cloudku } from "@zanixongroup/uploader";
-
-// Upload any file type
-const fileBuffer = fs.readFileSync("./document.pdf");
-
-// Choose any of these services
-const catboxUrl = await Catbox(fileBuffer);
-const pomfUrl = await Pomf(fileBuffer);
-const cloudkuUrl = await Cloudku(fileBuffer);
+// Videy only accepts MP4 and MOV input.
+const video = await readFile("./video.mp4");
+const videyUrl = await Videy(video);
 ```
 
 ### Error Handling
 
+Adapters throw when the input is invalid, exceeds the provider limit, has an unsupported Videy file type, or when the upstream request fails.
+
 ```javascript
-import { Pomf } from "@zanixongroup/uploader";
+import { readFile } from "node:fs/promises";
+import { Videy } from "@zanixongroup/uploader";
 
 try {
-  const buffer = fs.readFileSync("./my-file.jpg");
-  const url = await Pomf(buffer);
-  console.log("✅ Upload successful:", url);
+  const video = await readFile("./video.mp4");
+  const url = await Videy(video);
+
+  if (!url) {
+    throw new Error("The provider did not return a file URL");
+  }
+
+  console.log("Uploaded:", url);
 } catch (error) {
-  console.error("❌ Upload failed:", error.message);
-  // Handle error appropriately
+  console.error("Upload failed:", error.message);
 }
 ```
 
----
+## API Reference
 
-## 📚 API Reference
+Every named export follows this interface:
 
-### Available Functions
-
-All upload functions accept a `Buffer` and return a `Promise<string>` with the file URL.
-
-#### `Catbox(buffer: Buffer): Promise<string>`
-Upload files to Catbox - supports all file types.
-
-```javascript
-const url = await Catbox(fileBuffer);
+```typescript
+function upload(buffer: Buffer): Promise<string | null>;
 ```
 
-#### `Pomf(buffer: Buffer): Promise<string>`
-Upload files to Pomf - supports all file types.
+| Function | Description |
+| :--- | :--- |
+| `Catbox(buffer)` | Uploads a general file to Catbox. |
+| `Pomf(buffer)` | Uploads a general file to Pomf. |
+| `Quax(buffer)` | Uploads a media file to Qu.ax. |
+| `Videy(buffer)` | Uploads an MP4 or MOV video to Videy. |
+| `Cloudku(buffer)` | Uploads a provider-supported file to Cloudku. |
+| `Picsur(buffer)` | Uploads an image to Picsur. |
 
-```javascript
-const url = await Pomf(fileBuffer);
+### Parameter
+
+- `buffer`: A Node.js `Buffer` containing the complete file data.
+
+### Return Value
+
+- `Promise<string | null>`: The public file URL, or `null` when a provider response does not contain a URL.
+
+## Web Playground
+
+The [`docs/`](./docs) directory contains a responsive, serverless playground and browser-friendly API reference.
+
+[Open the live playground](https://lmavour.github.io/uploader/)
+
+Run it locally:
+
+```bash
+npx serve docs
 ```
 
-#### `Quax(buffer: Buffer): Promise<string>`
-Upload media files to Quax - supports images, videos, and audio.
+Browser uploads currently support MP4 and MOV files through Videy. The selected file is sent directly from the browser to the provider; this repository does not proxy or retain it. Use the Node.js package for the other adapters.
 
-```javascript
-const url = await Quax(fileBuffer);
+### Deploy to Vercel
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FLmavour%2Fuploader)
+
+The root [`vercel.json`](./vercel.json) serves `docs/` as a static site without a build step or environment variables.
+
+## Fork Scope
+
+Compared with the original project, this fork:
+
+- Removes temporary hosting adapters
+- Keeps six integrations aimed at long-lived file hosting
+- Adds a static web playground and API reference
+- Uses the Lmavour repository for issues and project documentation
+
+## Development
+
+Clone the repository and install its dependencies:
+
+```bash
+git clone https://github.com/Lmavour/uploader.git
+cd uploader
+npm install
 ```
 
-#### `Videy(buffer: Buffer): Promise<string>`
-Upload videos to Videy - optimized for video files.
+Available scripts:
 
-```javascript
-const url = await Videy(fileBuffer);
+| Command | Purpose |
+| :--- | :--- |
+| `npm run build` | Builds CommonJS, ESM, and declaration outputs with tsup. |
+| `npm test` | Runs the current live Picsur upload test. |
+| `npm run clean` | Removes the generated `dist/` directory. |
+
+`npm test` performs a real network upload using the repository fixture; it is not an isolated unit test.
+
+## Project Structure
+
+```text
+src/
+  index.ts          Package exports
+  services/         Provider adapters
+  utils/helper.ts   MIME and file-size helpers
+docs/               Static playground and API reference
+test/               Live upload test
 ```
 
-#### `Cloudku(buffer: Buffer): Promise<string>`
-Upload files to Cloudku - supports all file types.
+## Contributing
 
-```javascript
-const url = await Cloudku(fileBuffer);
-```
+Contributions that improve an existing integration or add a suitable long-lived provider are welcome.
 
-#### `Picsur(buffer: Buffer): Promise<string>`
-Upload images to Picsur - optimized for image files.
+1. Fork the repository and create a focused branch.
+2. Build and test your changes.
+3. Open a pull request with a clear description of the behavior changed.
 
-```javascript
-const url = await Picsur(fileBuffer);
-```
+Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) for the commit and contribution guidelines. Report bugs through [GitHub Issues](https://github.com/Lmavour/uploader/issues).
 
-### Parameters
+## License
 
-- **buffer** (`Buffer`): The file content as a Buffer
+The package metadata declares the project under the **ISC License**.
 
-### Returns
+## Credits
 
-- **Promise<string>**: A promise that resolves to the uploaded file URL
-
-### Throws
-
-- **Error**: If the upload fails or the service is unavailable
-
----
-
-## 🛠 Contributing
-
-We welcome contributions! If you want to add a new permanent hosting service or improve existing ones:
-
-1. Fork this repository
-2. Create a new branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-**Note**: This modified version focuses on permanent hosting services only. Please ensure any new services provide permanent storage.
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for more details.
-
----
-
-## 🐞 Issues
-
-Found a bug or have a feature suggestion? Open an [Issue](https://github.com/zanixongroup/uploader/issues). We'll respond as soon as possible.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/zanixongroup/uploader/blob/main/LICENSE) file for details.
-
----
-
-<div align="center">
-
-## 🙏 Credits
-
-**Original Project**: [ZanixonGroup](https://github.com/zanixongroup)
-
-**Modified by**: **lamvour** ⚡
-
----
-
-Made with ❤️ for permanent file hosting
-
-</div>
+- Original project: [ZanixonGroup](https://github.com/zanixongroup)
+- Fork and playground: [Lmavour](https://github.com/Lmavour)
